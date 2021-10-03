@@ -44,6 +44,13 @@ on fs
 
 on boot
     start health-hal-2-1
+    start vendor.qti.vibrator
 
 on post-fs
     start boot-hal-1-1
+
+service vendor.qti.vibrator /vendor/bin/hw/vendor.qti.hardware.vibrator.service
+    user root
+    group root input
+    disabled
+    seclabel u:r:recovery:s0
