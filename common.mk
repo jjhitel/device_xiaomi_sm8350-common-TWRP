@@ -54,19 +54,14 @@ AB_OTA_PARTITIONS += \
     system_ext \
     vbmeta \
     vbmeta_system \
-    vendor
+    vendor \
+    vendor_boot
 
 PRODUCT_PACKAGES += \
     otapreopt_script \
     update_engine \
     update_engine_sideload \
     update_verifier
-
-AB_OTA_POSTINSTALL_CONFIG += \
-    RUN_POSTINSTALL_system=true \
-    POSTINSTALL_PATH_system=system/bin/otapreopt_script \
-    FILESYSTEM_TYPE_system=ext4 \
-    POSTINSTALL_OPTIONAL_system=true
 
 # API
 PRODUCT_SHIPPING_API_LEVEL := 30
@@ -97,11 +92,6 @@ PRODUCT_PACKAGES_ENG += \
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(COMMON_PATH)
-
-# OEM otacert
-PRODUCT_EXTRA_RECOVERY_KEYS += \
-    $(COMMON_PATH)/security/$(BOARD_VENDOR)1 \
-    $(COMMON_PATH)/security/$(BOARD_VENDOR)2
 
 # Apex libraries
 PRODUCT_COPY_FILES += \

@@ -52,21 +52,7 @@ TARGET_USES_UEFI := true
 # Kernel
 TARGET_NO_KERNEL := false
 TARGET_KERNEL_ARCH := $(TARGET_ARCH)
-BOARD_KERNEL_IMAGE_NAME := Image.gz
-BOARD_KERNEL_CMDLINE := \
-    androidboot.console=ttyMSM0 \
-    androidboot.hardware=qcom \
-    androidboot.memcg=1 \
-    androidboot.usbcontroller=a600000.dwc3 \
-    cgroup.memory=nokmem,nosocket \
-    console=ttyMSM0,115200n8 \
-    earlycon=msm_geni_serial,0xa90000 \
-    firmware_class.path=/vendor/firmware \
-    lpm_levels.sleep_disabled=1 \
-    msm_rtb.filter=0x237 \
-    service_locator.enable=1 \
-    swiotlb=0 \
-    video=vfb:640x400,bpp=32,memsize=3072000
+BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_BOOT_HEADER_VERSION := 3
 BOARD_KERNEL_BASE          := 0x00000000
@@ -90,7 +76,7 @@ QCOM_BOARD_PLATFORMS += $(TARGET_BOARD_PLATFORM)
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_USES_PRODUCTIMAGE := true
 
-BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
+BOARD_BOOTIMAGE_PARTITION_SIZE := 201326592
 BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
 BOARD_SYSTEMIMAGE_EXTFS_INODE_COUNT := 4096
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -99,9 +85,9 @@ TARGET_USERIMAGES_USE_F2FS := true
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 
 # Dynamic/Logical Partitions
-BOARD_SUPER_PARTITION_SIZE := 7516192768
+BOARD_SUPER_PARTITION_SIZE := 9126805504
 BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
-BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 7511998464 # BOARD_SUPER_PARTITION_SIZE - 4MB
+BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 9122611200 # BOARD_SUPER_PARTITION_SIZE - 4MB
 BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := \
     system \
     system_ext \
@@ -110,9 +96,6 @@ BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := \
     odm
 
 # Workaround for error copying vendor files to recovery ramdisk
-BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_PRODUCT := product
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 TARGET_COPY_OUT_VENDOR := vendor
@@ -158,7 +141,7 @@ TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone50/temp"
 TW_THEME := portrait_hdpi
-TW_BRIGHTNESS_PATH := "/proc/lcd_brightness"
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
 TW_DEFAULT_BRIGHTNESS := 420
 TW_MAX_BRIGHTNESS := 1024
 TW_EXCLUDE_DEFAULT_USB_INIT := true
